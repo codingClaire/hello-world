@@ -24,49 +24,34 @@ private:
 class Length : virtual public Unit {
 public:
 	Length(double num, std::string unit) : Unit(num, unit) {}
+    double _from(double num, std::string unit);
+	double _to(double num, std::string unit);
 	~Length() {}
 private:
 	static std::map<std:: string, int> lenMap;
 
 };
-lenMap["m"] = 1;
-lenMap["km"] = 2;
-lenMap["mile"] = 3;
-lenMap["foot"] = 4;//”¢≥ﬂ
-lenMap["inch"] = 5;//”¢¥Á
-lenMap["mm"] = 6;
-lenMap["cm"] = 7;
+std::map<std::string, int>initial_map()
+{
+	std::map<std::string, int> tmp;
+	tmp.insert(std::make_pair("m", 1));
+	tmp.insert(std::make_pair("km",2));
+	tmp.insert(std::make_pair("mile",3));
+	tmp.insert(std::make_pair("foot",4));
+	tmp.insert(std::make_pair("inch",5));
+	tmp.insert(std::make_pair("mm",6));
+	tmp.insert(std::make_pair("cm",7)); 
+	tmp.insert(std::make_pair("chi",8));//≥ﬂ
+	tmp.insert(std::make_pair("cun",9));//¥Á
+	tmp.insert(std::make_pair("zhang",10));//’…
+	return tmp;
+}
+
+std::map<std::string, int> Length::lenMap(initial_map());
 
 
-
-/*
-class Mass: virtual public Unit{
-public:
-Mass(double num, std::string unit) : Unit(num, unit){}
-~Mass(){}
-private:
-static std::vector<std::vector<double(*)(double)> > Formula;
-};
-
-class Stress : virtual public Unit{
-public:
-Stress(double num, std::string unit) : Unit(num, unit){}
-~Stress(){}
-private:
-static std::vector<std::vector<double(*)(double)> > Formula;
-};
-
-class Force : virtual public Unit{
-public:
-Force(double num, std::string unit) : Unit(num, unit){}
-~Force(){}
-private:
-static std::vector<std::vector<double(*)(double)> > Formula;
-};
-*/
-
-double Unit::_from(double num, std::string unit, std::map<std::string, int>& unitMap) {
-	switch (unitMap.at(unit)) {
+double Length::_from(double num, std::string unit) {
+	switch (lenMap.at(unit)) {
 	case 1:break;
 	case 2:return 1000 * num; break;
 	case 3:return 1609.3448*num; break;
@@ -76,9 +61,9 @@ double Unit::_from(double num, std::string unit, std::map<std::string, int>& uni
 	case 7:return 0.01*num; break;
 	}
 }
-double Unit::_to(double num, std::string unit, std::map<std::string, int>& unitMap) {
-	switch (unitMap.at(unit)) {
-	case 1: break;
+double Length::_to(double num, std::string unit) {
+	switch (lenMap.at(unit)) {
+	case 1:break;
 	case 2:return num/1000; break;
 	case 3:return num/1609.3448; break;
 	case 4:return num/0.3048; break;
@@ -91,7 +76,9 @@ double Unit::_to(double num, std::string unit, std::map<std::string, int>& unitM
 int main()
 {
 	std::string unit1, unit2;
-	int num;
+	double num;
 	std::cin >> num >> unit1 >> unit2;
-	std::cout << convert() << std::endl;
+	std::cout <<Length::_from(num,unit1)<< std::endl;
 	return 0;
+} 
+
