@@ -4,14 +4,12 @@
 //长度单位：m, km, ft, in,......
 //其它单位：md, cp,......
 //还有很多单位转换，有些单位是其它单位组合出来的
-/*单位转换器
+/*单位转换器大作业 
   小组成员：周君栋、吴若婷*/ 
-
 #include<iostream>
 #include<string>
 #include<map>
 #include<cstdio>
-
 class Unit {
 public:
 	Unit(double num, std::string unit) : data(num), unit(unit) {}
